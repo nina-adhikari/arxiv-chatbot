@@ -3,7 +3,7 @@ from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-import src.query as query
+#import src.query as query
 
 app = FastAPI()
 
