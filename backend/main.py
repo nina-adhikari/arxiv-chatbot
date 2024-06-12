@@ -15,7 +15,8 @@ class Item(BaseModel):
 
 @app.get("/")
 def read_root():
-    return query.connect("What is known about Euler characteristics of Hilbert schemes?")
+    return "Connected"
+    #return query.connect("What is known about Euler characteristics of Hilbert schemes?")
 
 
 @app.get("/query/{item_id}")
