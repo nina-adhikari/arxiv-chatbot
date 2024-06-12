@@ -48,7 +48,7 @@ def rag_prompting():
 def connect(query):
     hf = load_embedding("BAAI/bge-small-en-v1.5")
     pc = Pinecone(api_key=env.get("PINECONE_API_KEY"))
-    index = pc.Index("langchain-test")
+    index = pc.Index("arxiv-abstracts")
     docsearch = PineconeVectorStore(index=index, embedding=hf)
     llm = ChatOpenAI(
         model="gpt-3.5-turbo",
