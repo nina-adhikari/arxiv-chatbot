@@ -9,3 +9,4 @@ pydantic>=2.7.4
 python-dotenv>=1.0.1
 sentence-transformers
 uvicorn
+gunicorn
