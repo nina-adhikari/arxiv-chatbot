@@ -6,7 +6,6 @@ fastapi>=0.111.0
 # langchain_pinecone>=0.1.1
 # pinecone>=4.0.0
 # pydantic>=2.7.4
-# python-dotenv>=1.0.1
+python-dotenv>=1.0.1
 # sentence-transformers
 uvicorn
-gunicorn

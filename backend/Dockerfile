@@ -6,9 +6,9 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY . ./
 
-ENV PORT 1234
+ENV PORT 80
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt --cache-dir __pycache__ 
 
 # As an example here we're running the web service with one worker on uvicorn.
 CMD exec uvicorn main:app --host 0.0.0.0 --port ${PORT} --workers 1

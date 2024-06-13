@@ -1,30 +1,30 @@
-from langchain_openai import ChatOpenAI
+# from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
-from pinecone import Pinecone
-from langchain_pinecone import PineconeVectorStore
-from os import environ as env
-from langchain_community.embeddings import HuggingFaceBgeEmbeddings
-from langchain.chains import RetrievalQAWithSourcesChain as RQA
+# from pinecone import Pinecone
+# from langchain_pinecone import PineconeVectorStore
+# from os import environ as env
+# from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+# from langchain.chains import RetrievalQAWithSourcesChain as RQA
 from functools import lru_cache
-from langchain.chains import create_retrieval_chain
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_core.prompts import ChatPromptTemplate
+# from langchain.chains import create_retrieval_chain
+# from langchain.chains.combine_documents import create_stuff_documents_chain
+# from langchain_core.prompts import ChatPromptTemplate
 
 
 
 
 load_dotenv()
 
-@lru_cache
-def load_embedding(model_name):
-    model_kwargs = {
-        #"device": device
-        }
-    encode_kwargs = {"normalize_embeddings": True, "show_progress_bar": True, "batch_size": 128}
-    hf = HuggingFaceBgeEmbeddings(
-        model_name=model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs
-    )
-    return hf
+# @lru_cache
+# def load_embedding(model_name):
+#     model_kwargs = {
+#         #"device": device
+#         }
+#     encode_kwargs = {"normalize_embeddings": True, "show_progress_bar": True, "batch_size": 128}
+#     hf = HuggingFaceBgeEmbeddings(
+#         model_name=model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs
+#     )
+#     return hf
 
 def rag_prompting():
     system_prompt = (
