@@ -16,7 +16,7 @@ if prompt := st.chat_input("What is up?"):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        stream = requests.get('https://chatbot-backend-2xmu7lqbjq-uc.a.run.app/query/'+prompt,
+        stream = requests.get(st.secrets["API_URL"]+prompt,
                               params={'key':'value'})
         response = st.write(stream.json()['answer'])
         #response = st.write_stream(stream)
