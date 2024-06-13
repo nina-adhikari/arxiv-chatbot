@@ -1,30 +1,27 @@
-# from langchain_openai import ChatOpenAI
-from dotenv import load_dotenv
-# from pinecone import Pinecone
-# from langchain_pinecone import PineconeVectorStore
-# from os import environ as env
-# from langchain_community.embeddings import HuggingFaceBgeEmbeddings
-# from langchain.chains import RetrievalQAWithSourcesChain as RQA
+from os import environ as env
 from functools import lru_cache
-# from langchain.chains import create_retrieval_chain
-# from langchain.chains.combine_documents import create_stuff_documents_chain
-# from langchain_core.prompts import ChatPromptTemplate
-
-
-
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
+from langchain_pinecone import PineconeVectorStore
+from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+from langchain.chains import RetrievalQAWithSourcesChain as RQA
+from langchain.chains import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_core.prompts import ChatPromptTemplate
+from pinecone import Pinecone
 
 load_dotenv()
 
-# @lru_cache
-# def load_embedding(model_name):
-#     model_kwargs = {
-#         #"device": device
-#         }
-#     encode_kwargs = {"normalize_embeddings": True, "show_progress_bar": True, "batch_size": 128}
-#     hf = HuggingFaceBgeEmbeddings(
-#         model_name=model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs
-#     )
-#     return hf
+@lru_cache
+def load_embedding(model_name):
+    model_kwargs = {
+        #"device": device
+        }
+    encode_kwargs = {"normalize_embeddings": True, "show_progress_bar": True, "batch_size": 128}
+    hf = HuggingFaceBgeEmbeddings(
+        model_name=model_name, model_kwargs=model_kwargs, encode_kwargs=encode_kwargs
+    )
+    return hf
 
 def rag_prompting():
     system_prompt = (
@@ -55,15 +52,8 @@ def connect(query):
         temperature=0,
     )
     retriever=docsearch.as_retriever()
-    qa_with_sources = RQA.from_chain_type(
-        llm=llm,
-        chain_type="stuff",
-        retriever=retriever
-    )
     prompt = rag_prompting()
     question_answer_chain = create_stuff_documents_chain(llm, prompt)
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
     response = rag_chain.invoke({"input": query})
     return response
-    #answer = qa_with_sources(query)
-    #return answer

@@ -7,8 +7,8 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return "Connected"
-    #return query.connect("What is known about Euler characteristics of Hilbert schemes?")
+    #return "Connected"
+    return query.connect("What is known about Euler characteristics of Hilbert schemes?")
 
 
 # @app.get("/query/{item_id}")
