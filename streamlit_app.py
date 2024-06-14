@@ -5,26 +5,12 @@ from urllib.parse import quote
 import time
 
 URL = env("API_URL")
-GTAG = env("GTAG")
 
 
 st.set_page_config(
     page_title="ArXiv Chatbot",
     layout="wide",
     menu_items={}
-)
-
-st.markdown(f"""
-    <script async src="https://www.googletagmanager.com/gtag/js?id={GTAG}"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){{dataLayer.push(arguments);}}
-    gtag('js', new Date());
-
-    gtag('config', '{GTAG}');
-    </script>
-    """,
-    unsafe_allow_html=True
 )
 
 st.markdown(
