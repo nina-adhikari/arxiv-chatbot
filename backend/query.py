@@ -15,6 +15,8 @@ import requests
 
 load_dotenv()
 
+ARXIV_URL = "https://arxiv.org/abs/"
+
 # @lru_cache
 # def load_embedding(model_name):
 #     model_kwargs = {
@@ -65,7 +67,22 @@ def connect(query):
     question_answer_chain = create_stuff_documents_chain(llm, prompt)
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
     response = rag_chain.invoke({"input": query})
-    return response
+    return_dict = {}
+    return_dict['answer'] = response['answer']
+    yield return_dict['answer']
+    return_dict['sources'] = response['context']
+    for chunk in return_dict['sources']:
+        yield chunk.metadata
+    return return_dict
+
+
+    # sources = ""
+    # for i in range(len(response['context'])):
+    #     source = response['context'][i].metadata
+    #     sources += f"{i+1}. [{source['title']}]({ARXIV_URL}{source['source']})  \n  "
+    # return response['answer'] \
+    #      + "  \n  Sources:  \n  " \
+    #      + sources
 
 
 
