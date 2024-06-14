@@ -4,8 +4,6 @@ import shutil
 import streamlit as st
 import os
 
-GTAG = os.environ["GTAG"]
-
 GA_ID = "google_analytics"
 GA_SCRIPT = f"""
 <!-- Google tag (gtag.js) -->
