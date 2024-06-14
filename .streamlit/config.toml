@@ -1,0 +1,77 @@
+[client]
+
+# ***DEPRECATED***
+# client.caching has been deprecated and is not required anymore for our new
+# caching commands. This option will be removed on or after 2024-01-20.
+# ****************
+# Whether to enable st.cache. This does not affect st.cache_data or
+# st.cache_resource.
+# Default: true
+caching = true
+
+# ***DEPRECATED***
+# client.displayEnabled has been deprecated and will be removed in a future
+# version. This option will be removed on or after 2024-01-20.
+# ****************
+# If false, makes your Streamlit script not draw to a Streamlit app.
+# Default: true
+displayEnabled = true
+
+# Controls whether uncaught app exceptions and deprecation warnings
+# are displayed in the browser. By default, this is set to True and
+# Streamlit displays app exceptions and associated tracebacks, and
+# deprecation warnings, in the browser.
+#
+# If set to False, deprecation warnings and full exception messages
+# will print to the console only. Exceptions will still display in the
+# browser with a generic error message. For now, the exception type and
+# traceback show in the browser also, but they will be removed in the
+# future.
+# Default: true
+showErrorDetails = true
+
+# Change the visibility of items in the toolbar, options menu,
+# and settings dialog (top right of the app).
+# Allowed values:
+# * "auto"      : Show the developer options if the app is accessed through
+#                 localhost or through Streamlit Community Cloud as a developer.
+#                 Hide them otherwise.
+# * "developer" : Show the developer options.
+# * "viewer"    : Hide the developer options.
+# * "minimal"   : Show only options set externally (e.g. through
+#                 Streamlit Community Cloud) or through st.set_page_config.
+#                 If there are no options left, hide the menu.
+# Default: "auto"
+toolbarMode = "minimal"
+
+# Controls whether the default sidebar page navigation in a multipage app is
+# displayed.
+# Default: true
+showSidebarNavigation = true
+
+
+[theme]
+
+# The preset Streamlit theme that your custom theme inherits from.
+# One of "light" or "dark".
+base = "dark"
+
+# Primary accent color for interactive elements.
+# primaryColor =
+
+# Background color for the main content area.
+# backgroundColor =
+
+# Background color used for the sidebar and most interactive widgets.
+# secondaryBackgroundColor =
+
+# Color used for almost all text.
+# textColor =
+
+# Font family for all text in the app, except code blocks. One of "sans serif",
+# "serif", or "monospace".
+# font =
+
+secondaryBackgroundColor="#333333"
+backgroundColor="#000000"
+textColor="#ffffff"
