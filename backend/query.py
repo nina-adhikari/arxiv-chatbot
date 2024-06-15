@@ -230,8 +230,8 @@ class ConversationAgentWrapper:
 
 def create_prompt(memory_key: str = "history"):
     system_prompt = (
-    "You are an assistant for question-answering tasks. You also have
-    access to a tool to help you gather more information."
+    "You are an assistant for question-answering tasks. You also have"
+    "access to a tool to help you gather more information."
     # "Use the following pieces of retrieved context to answer "
     # "the question."
     "If you don't know the answer, say that you "
