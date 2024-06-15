@@ -14,7 +14,11 @@ async def root():
 @app.get("/query/{q}")
 async def read_item(q: str = None):
     #return "Connected"
-    return query.connect(q)
+    #result = await query.connect(q)
+    result = query.connect(q)
+    return result
+    # async for chunk in result:
+    #     yield chunk
 
 
 # @app.put("/items/{item_id}")
