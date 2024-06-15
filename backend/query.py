@@ -169,6 +169,7 @@ class ConversationAgentWrapper:
         )
     
     def invoke_chain(self, query: str) -> Any:
+        print("Chain invoked")
         return self.chain.invoke({self.input_key: query})
 
     def create_tools(self) -> List[Tool]:
@@ -178,8 +179,7 @@ class ConversationAgentWrapper:
                 func = self.invoke_chain,
                 #coroutine = custom_ainvoke,
                 description = ("""
-                    use this tool when answering general queries to get more info about
-                            a given topic
+                    use this tool when answering questions to get more information about a given topic
                 """)
             )
         ]
@@ -230,7 +230,8 @@ class ConversationAgentWrapper:
 
 def create_prompt(memory_key: str = "history"):
     system_prompt = (
-    "You are an assistant for question-answering tasks. "
+    "You are an assistant for question-answering tasks. You also have
+    access to a tool to help you gather more information."
     # "Use the following pieces of retrieved context to answer "
     # "the question."
     "If you don't know the answer, say that you "
