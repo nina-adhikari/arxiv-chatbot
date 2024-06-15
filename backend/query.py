@@ -198,7 +198,7 @@ class ConversationAgentWrapper:
     
     def create_executor(self,
         remember_intermediate_steps: bool = True,
-        verbose: bool = False,
+        verbose: bool = True,
         **kwargs: Any,
     ) -> AgentExecutor:
         """Create and return a conversational retrieval agent executor. Assumes an agent already exists.
