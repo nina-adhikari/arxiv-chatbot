@@ -126,9 +126,9 @@ class Embeddings:
 
 @dataclass
 class ConversationAgentWrapper:
-    llm: BaseLanguageModel
-    retriever: BaseRetriever
-    prompt: BasePromptTemplate
+    # llm: BaseLanguageModel
+    # retriever: BaseRetriever
+    # prompt: BasePromptTemplate
     memory_key: str = "history"
     input_key: str = "input"
     memory: BaseMemory = field(init=False)
@@ -146,7 +146,7 @@ class ConversationAgentWrapper:
 
     def create_memory(self) -> BaseMemory:
         return ConversationSummaryBufferMemory(
-            llm = self.llm,
+            llm = LLM,
             max_token_limit = 650,
             memory_key=self.memory_key,
             return_messages=True,
@@ -156,7 +156,7 @@ class ConversationAgentWrapper:
     
     def create_chain(self) -> Chain:
         conversation_chain = ConversationChain(
-        llm = self.llm,
+        llm = LLM,
         #prompt = prompt,
         memory = self.memory,
         #verbose=True,
@@ -164,7 +164,7 @@ class ConversationAgentWrapper:
         )
 
         return create_retrieval_chain(
-            self.retriever,
+            RETRIEVER,
             conversation_chain
         )
     
@@ -191,9 +191,9 @@ class ConversationAgentWrapper:
             An agent initialized appropriately
         """
         return create_openai_functions_agent(
-            llm = self.llm,
+            llm = LLM,
             tools = self.tools,
-            prompt = self.prompt
+            prompt = PROMPT
         )
     
     def create_executor(self,
@@ -270,25 +270,17 @@ def create_retriever(
     vector_store = PineconeVectorStore(index = index, embedding = embedding)
     return vector_store.as_retriever()
 
-def setup():
-    prompt = create_prompt()
-    retriever = create_retriever()
-    
-    llm = ChatOpenAI(
-        model="gpt-3.5-turbo",
-        temperature=0,
-        #streaming=True
-    )
-    
-    return ConversationAgentWrapper(
-        llm = llm,
-        retriever = retriever,
-        prompt = prompt,
-    )
 
-agent = setup()
+PROMPT = create_prompt()
+RETRIEVER = create_retriever()
 
-def connect(query):
+LLM = ChatOpenAI(
+    model="gpt-3.5-turbo",
+    temperature=0,
+    #streaming=True
+)
+
+def connect(agent, query):
     warnings.simplefilter('ignore')
     response = agent.invoke_executor(query)
     return response
