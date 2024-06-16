@@ -53,14 +53,17 @@ def display(stream, wait):
                     except:
                         pass
                     time.sleep(wait)
+        if chunk == "user_id":
+            if 'user_id' not in st.session_state:
+                st.session_state.user_id = stream.json()['user_id']
     return stream
 
-def process_query(prompt):
-    query = quote(prompt, safe='/:')
+def process_query(prompt, user_id):
+    # query = quote(prompt, safe='/:')
     with st.spinner(""):
-        stream = requests.get(
-            URL+query,
-            params={'key':'value'}
+        stream = requests.post(
+            URL,
+            params={'user_id': user_id, 'message':prompt}
         )
     stream = display(stream, 0.01)
         
@@ -100,8 +103,10 @@ if prompt := st.chat_input(WELCOME):
     with st.chat_message("user"):
         st.markdown(user_text, unsafe_allow_html=True)
 
+    user_exists = "user_id" in st.session_state
+    user_id = 0 if not user_exists else st.session_state.user_id
     with st.chat_message("assistant"):
-        response = st.write_stream(process_query(prompt))
+        response = st.write_stream(process_query(prompt, user_id))
 
     st.session_state.messages.append({"role": "assistant", "content": response})
 
