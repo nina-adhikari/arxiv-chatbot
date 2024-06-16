@@ -175,11 +175,11 @@ class ConversationAgentWrapper:
     def create_tools(self) -> List[Tool]:
         return [
             Tool(
-                name="Abstract_Database",
+                name="ArXiv-search",
                 func = self.invoke_chain,
                 #coroutine = custom_ainvoke,
                 description = ("""
-                    use this tool when answering questions to get more information about a given topic
+                    use this tool when answering questions to get more information about a scientific or technical topic
                 """)
             )
         ]
@@ -229,17 +229,33 @@ class ConversationAgentWrapper:
 
 
 def create_prompt(memory_key: str = "history"):
-    system_prompt = (
-    "You are an assistant for question-answering tasks. You also have"
-    "access to a tool to help you gather more information."
-    # "Use the following pieces of retrieved context to answer "
-    # "the question."
-    "If you don't know the answer, say that you "
-    "don't know. Use five sentences maximum and keep the "
-    "answer concise."
-    "\n\n"
-    #"{context}"
-    )
+    # system_prompt = (
+    # "You are an assistant for question-answering tasks. You also have"
+    # "access to a tool to help you gather more information."
+    # # "Use the following pieces of retrieved context to answer "
+    # # "the question."
+    # "If you don't know the answer, say that you "
+    # "don't know. Use five sentences maximum and keep the "
+    # "answer concise."
+    # "\n\n"
+    # #"{context}"
+    # )
+
+    system_prompt = """
+        You are an intelligent agent equipped with a tool named "ArXiv-search" that can answer
+        technical and scientific questions.
+        When asked to answer a technical or scientific question, you should use "ArXiv-search" to handle the input.
+
+        Instructions:
+        1. If the input asks you to answer a technical or scientific question, use "ArXiv-search".
+        2. If the input is a general query, answer it to the best of your knowledge.
+
+        Examples:
+        - Input: "Which is the largest ocean?"
+        Action: Answer "The Pacific Ocean".
+        - Input: "What is quantum gravity?"
+        Action: Use "ArXiv-search" to answer the question.
+    """
 
     prompt = ChatPromptTemplate.from_messages([
         ("system", system_prompt),
