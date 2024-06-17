@@ -99,13 +99,13 @@ There are two obvious drawbacks with this approach:
 
 1. This example shows how the chat bot follows the prompt above to use RAG to answer the initial question, and then its native LLM capabilities to anwer the follow-up:
 
-<center><img src="screenshot1.png" alt="Screenshot" width="500"/></center>
+<center><img src="screenshot1.png" alt="Screenshot"/></center>
 
 
 
 2. Here is a comparison of the ArXiv chatbot with ChatGPT. The following is a screenshot of a conversation with the ArXiv chatbot on June 16, 2024:
 
-<center><img src="screenshot2.png" alt="Screenshot" width="500"/></center>
+<center><img src="screenshot2.png" alt="Screenshot"/></center>
 
 The papers are real papers, the author list is accurate, the links are accurate and the summaries are faithful. The cited sources match exactly with the papers listed in the answer. Compare this with the following conversation with ChatGPT (on the same day) using GPT-4o:
 
