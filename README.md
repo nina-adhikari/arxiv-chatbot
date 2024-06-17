@@ -7,7 +7,7 @@ ArXiv Chatbot is a GPT-based RAG agent that can search 2.4 million ArXiv abstrac
 
 ## Description
 
-The frontend is a Python-based Streamlit app hosted on [Render](https://render.com/). The backend is a FastAPI app hosted using a Docker image on Google Cloud Run. The two are relatively independent, so if you would like access to the backend API for your own projects, get in touch!
+The frontend is a Python-based Streamlit app hosted on [Render](https://render.com/). The backend is a FastAPI app hosted using a Docker image on Google Cloud Run. The two are relatively independent, so if you would like access to the backend API for your own projects, **get in touch**!
 
 Here are some more details about how this was constructed:
 
@@ -97,7 +97,7 @@ There are two obvious drawbacks with this approach:
 
 ## Examples
 
-1. This example shows how the chat bot follows the prompt above to use RAG to answer the initial question, and then its native LLM capabilities to anwer the follow-up:
+1. This example shows how the chat bot follows the prompt above to use RAG to answer the initial question, and then its native LLM capabilities to answer the follow-up:
 
 <center><img src="screenshot1.png" alt="Screenshot"/></center>
 
