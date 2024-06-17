@@ -34,6 +34,7 @@ ARXIV_URL = "https://arxiv.org/abs/"
 st.title("ArXiv Chatbot")
 
 def display(stream, wait):
+    print(stream)
     for chunk in stream.json():
         if chunk == "output":
             for text in list(stream.json()[chunk]):
@@ -54,8 +55,7 @@ def display(stream, wait):
                         pass
                     time.sleep(wait)
         if chunk == "user_id":
-            if 'user_id' not in st.session_state:
-                st.session_state.user_id = stream.json()['user_id']
+            st.session_state.user_id = stream.json()['user_id']
     return stream
 
 def process_query(prompt, user_id):
@@ -65,6 +65,8 @@ def process_query(prompt, user_id):
             URL,
             params={'user_id': user_id, 'message':prompt}
         )
+    if stream.status_code != 200:
+        stream.raise_for_status()
     stream = display(stream, 0.01)
         
         # region old content
@@ -90,6 +92,8 @@ def process_query(prompt, user_id):
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
+    with st.spinner("Loading..."):
+        requests.get(URL[:-6])
     st.session_state.messages.append({"role": "assistant", "content": WELCOME})
 
 for message in st.session_state.messages:
@@ -104,9 +108,15 @@ if prompt := st.chat_input(WELCOME):
         st.markdown(user_text, unsafe_allow_html=True)
 
     user_exists = "user_id" in st.session_state
-    user_id = 0 if not user_exists else st.session_state.user_id
+    if user_exists:
+        user_id = st.session_state.user_id
+    else:
+        user_id = 0
     with st.chat_message("assistant"):
-        response = st.write_stream(process_query(prompt, user_id))
+        try:
+            response = st.write_stream(process_query(prompt, user_id))
+        except:
+            response = st.write("Sorry, an error occurred. Please refresh the page and try again.")
 
     st.session_state.messages.append({"role": "assistant", "content": response})
 
